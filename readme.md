@@ -2,8 +2,8 @@
 
 A quick tool to clean this adb condition
 
-```shell
-¦Ë adb devices
+```
+$ adb devices
 adb server is out of date.  killing...
 ADB server didn't ACK
 * failed to start daemon *
