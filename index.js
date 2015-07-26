@@ -1,15 +1,11 @@
 var childProcess = require('child_process'),
-    os           = require('os')
+    os           = require('os'),
+    findPID      = require('./src/find-pid')
 
 
 var CODE = {
 	SUCCESS     : 0,
 	ADB_PORT_USE: 1
-}
-
-var trim = function (str) {
-	var match = str.match(/^[ \t\n\r]*([\w\W]*?)[ \t\n\r]*$/)
-	return match[1]
 }
 
 
@@ -41,30 +37,6 @@ var adbCheck = function (callback) {
 }
 
 
-// get pid or -1
-// only works in windows
-var findPID = function (callback) {
-	childProcess.exec('netstat -ano | findstr "5037"', function (err, stdout, stderr) {
-		var lines = stdout.split(os.EOL)
-		var find = false
-		lines.forEach(function (line) {
-			var blocks = trim(line).split(/\s+/)
-			var ipport = blocks[1]
-			var status = blocks[3]
-			var pid = blocks[4]
-			if (ipport == '127.0.0.1:5037' && status == 'LISTENING') {
-				callback(pid)
-				find = true
-				return
-			}
-		})
-		if (!find) {
-			callback(-1)
-		}
-	})
-}
-
-
 var killPID = function (pid) {
 	console.log('ready to kill pid=%s', pid)
 	process.kill(pid)
@@ -76,13 +48,18 @@ module.exports = adbCheck
 
 
 if (!module.parent) {
+	var PORT = '5037'
 	adbCheck(function (code) {
 		if (code == CODE.SUCCESS) {
 			console.log('adb work fine, no need to restart')
 		} else {
-			console.log('adb port use')
-			findPID(function (pid) {
-				if (pid == -1) {
+			console.log('adb port %s use', PORT)
+			findPID('5037', function (err, pid) {
+				if (err) {
+					return console.error('find pid error: ' + err)
+				}
+
+				if (pid === null) {
 					console.log('dont\'t find pid, no need to kill')
 					return
 				}
