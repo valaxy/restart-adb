@@ -23,7 +23,7 @@ $ adb devices
 > error: unknown host service
 ```
 
-**FUCK it!***
+**FUCK it!**
 
 ```
 $ node index
