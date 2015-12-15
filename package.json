@@ -1,14 +1,9 @@
 {
-    "name":       "restart-adb",
-    "version":    "0.1.0-dev",
-    "main":       "index.js",
-    "repository": {
-        "type": "git",
-        "url":  "git+https://github.com/valaxy/restart-adb.git"
-    },
-    "license":    "MIT",
-    "bugs":       {
-        "url": "https://github.com/valaxy/restart-adb/issues"
-    },
-    "homepage":   "https://github.com/valaxy/restart-adb#readme"
+    "name":    "restart-adb",
+    "version": "0.1.0",
+    "main":    "index.js",
+    "license": "MIT",
+    "scripts": {
+        "test": "mocha test -t 10000"
+    }
 }

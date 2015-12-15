@@ -1,6 +1,6 @@
-> This is under development
+> Only work for windows
 
-A quick tool to clean this adb condition
+A quick tool to clean adb environment
 
 ```
 $ adb devices
@@ -11,4 +11,4 @@ error: unknown host service
 ```
 
 # Usage
-`node restart-adb/index.js`
+`node index`
