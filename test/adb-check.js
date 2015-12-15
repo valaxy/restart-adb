@@ -7,8 +7,9 @@ describe('adbCheck()', function () {
 	// need clean adb port before test
 	//
 	it('case1', function (done) {
-		adbCheck(function (err) {
+		adbCheck(function (err, data) {
 			assert.equal(err, null)
+			assert.ok(data)
 			done()
 		})
 	})
